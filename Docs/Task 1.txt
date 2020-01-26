@@ -1,0 +1,19 @@
+Task 1
+
+1. Firstly, I would ask for documentation and requirements, if they're available. Otherwise I'd ask developers to provide a list of all endpoints with short explanation what they do, what parameters they accept and what kind of responses to expect. If known issues are present a list of them should be provided as well, Jira tickets or something like that. If specific errors were developed they should also be provided.
+
+Secondly, I would ask whether anyone has already started testing. I assume developers are doing unit testing before they merge a new feature. But maybe someone has already tested something apart from unit tests and they might provide a valuable feedback.
+
+
+2. Be sure that before testing the development is finished and documented or at least an explanation how something works is provided to other team members. Make it clear who's responsible for what so multiple people aren't testing the same thing.
+
+Features should be tested according to their priority. And priorities should be set according to requirements or if not available to logical order. E.g. logging in has the highest priority when all other actions require a user to be logged in.
+
+On the other hand logging out would be probably one of the lower ones. Of course for tests logging in can be avoided by turning off authentication but then for a release it's the first thing a real user will encounter.
+
+
+3. Try to keep things clean and ordered. All tests should be as simple as possible so everyone can understand what they're checking and what caused an eventual failure. Instead of creating a test which checks logging in, uploads a file, moves it and logs out, create one test for each of the steps. If logging in fails there's no point in continuing all other steps and chances of a test failing on something unexpected is lowered.
+
+Endpoints should be saved to properly named variables in one file. All variables that will be commonly used should be saved to another one, like user names, passwords, file names etc. Tests should be grouped by a feature, location on the page or something that makes a clear distinction in behaviour.
+
+Steps for tests should be generic if possible. Instead of creating 3 methods for logging in as a different user, create one which accepts user name and password. Some kind of convention should be used for naming variables, methods etc.. So when someone is looking for something, he knows where to look for it and what name to expect. Use the same person in all of them, instead of using 'I log in as ...' and then 'User logs out'.

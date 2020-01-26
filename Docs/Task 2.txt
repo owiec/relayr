@@ -1,0 +1,41 @@
+Task 2
+
+Similar to answers to Task 1, optimistic version - based on requirements test each endpoint according to its documentation. Pessimistic - find out what endpoints there are, how they work and create basic use cases to set up testing priorities.
+
+Some test cases based on Last.fm API (https://www.last.fm/api/).
+Assumption - basic requests looks like that and proper api key is given:http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=<provided_api_key>
+
+1. Check if endpoint does NOT work without api key.
+	I. Send get request without API key.
+	II. Get request returns 400 code.
+	III. Response message contains: 'error': 6, 'message': 'Invalid parameters - Your request is missing a required parameter'.
+	
+2. Check if endpoint does NOT work with wrong api key.
+	I. Send get request with wrong API key.
+	II. Get request returns 403 code.
+	III. Response message contains: 'error': 10, 'message': 'Invalid API key - You must be granted a valid key by last.fm'.
+
+3. Check if endpoint works without optional parameters - XML.
+	I. Send get request.
+	II. Get request returns 200 code.
+	III. Message is in XML format and contains: 'artists page="1" perPage="50' and a list of 50 artists.
+
+3. Check if endpoint works without optional parameters - JSON.
+	I. Send get request with '&format=json' added to address.
+	II. Get request returns 200 code.
+	III. Message is in JSON format and contains: ''@attr': {'page': '1', 'perPage': '50'' and a list of 50 artists.
+
+4. Check if page parameter works properly.
+	I. Send get request with '&page=7' added to address.
+	II. Get request returns 200 code.
+	III. Message contains: 'artists page="7" perPage="50' and a list of 50 artists.
+
+5. Check if page parameter cannot be lower than 1.
+	I. Send get request with '&page=0' added to address.
+	II. Get request returns 200 code.
+	III. Message contains: 'page param out of bounds (1-1000000)'.
+
+6. Check if empty page request works properly.
+	I. Send get request with '&page=999999' added to address.
+	II. Get request returns 200 code.
+	III. Message contains: 'artists page="999999" perPage="50' and an empty list of artists.
