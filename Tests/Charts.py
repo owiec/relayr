@@ -11,7 +11,7 @@ class Charts:
         """
         Get a list of top artists
         :param format_json: bool: response will be returned by default in Json format, if False it'll be XML
-        :param artists: int:  of artists per page, max is 50
+        :param artists: int: limit of artists per page, boundary 1-1000
         :return: code and text of response
         """
         endpoint = endpoints.top_artist
